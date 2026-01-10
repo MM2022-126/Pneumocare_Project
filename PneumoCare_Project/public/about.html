@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>About Us — PneumoCare</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="firebase-init.js"></script>
+</head>
+<body data-theme="light">
+  <div class="floating-shape"></div>
+  <div class="floating-shape"></div>
+  
+  <header class="site-header">
+    <nav class="nav">
+      <div class="brand">
+        <span style="font-size:2rem;background:var(--accent-spectrum);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:700;">PneumoCare</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="about.html" class="active">About Us</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><button id="themeToggle">🌙</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="crystal-nav">
+    <a href="index.html" class="crystal-nav-btn" title="Home">🏠</a>
+    <a href="contact.html" class="crystal-nav-btn" title="Contact">📧</a>
+    <a href="dashboard.html" class="crystal-nav-btn" title="Dashboard">📊</a>
+    <button id="themeToggleSide" class="crystal-nav-btn" title="Toggle Theme">🌙</button>
+  </div>
+
+  <main style="max-width:900px;margin:80px auto;padding:20px;">
+    <div class="card card--3d">
+      <div class="section-header">
+        <div class="section-icon">👨‍⚕️</div>
+        <h1 style="font-size:2.5rem;">About PneumoCare</h1>
+      </div>
+      
+      <div style="margin-top:32px;">
+        <h3>🩺 Our Mission</h3>
+        <p class="muted" style="font-size:1.1rem;line-height:1.8;">
+          At PneumoCare, we're on a mission to make chest X-ray diagnostics so easy, even a medical student could do it... 
+          wait, that's literally our team! 💉
+        </p>
+
+        <h3 style="margin-top:32px;">🧬 The Science Behind the Magic</h3>
+        <p class="muted" style="font-size:1.1rem;line-height:1.8;">
+          We trained our AI on thousands of chest X-rays until it could spot pneumonia faster than you can say 
+          "bilateral interstitial infiltrates." Our model has seen more lungs than a pulmonologist's entire career! 🫁
+        </p>
+
+        <h3 style="margin-top:32px;">👥 Meet the "Doctors"</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px;margin-top:20px;">
+          <div class="glass-panel">
+            <h4 style="color:var(--bright-sky);">Dr. Musadiq 🎓</h4>
+            <p class="small">Chief of "Have You Tried Restarting the Model?"</p>
+            <p class="small" style="margin-top:12px;font-style:italic;">
+              "I may not have a medical license, but I have a degree in making computers pretend they do!"
+            </p>
+          </div>
+          
+          <div class="glass-panel">
+            <h4 style="color:var(--tomato);">Dr. Tayyab 🔬</h4>
+            <p class="small">Director of "It Works on My Machine"</p>
+            <p class="small" style="margin-top:12px;font-style:italic;">
+              "99% accuracy... the other 1% is just the X-ray being shy!"
+            </p>
+          </div>
+        </div>
+
+        <h3 style="margin-top:32px;">⚠️ Legal Disclaimer (The Boring Stuff)</h3>
+        <p class="small" style="background:rgba(230,90,60,0.1);padding:16px;border-radius:12px;border-left:4px solid var(--tomato);">
+          <strong>Important:</strong> This is an educational project created by computer science students. 
+          We're called "Dr." in the same way Dr. Pepper is a doctor. Always consult actual licensed medical 
+          professionals for real medical advice. Our AI is smart, but it can't replace your real doctor (yet)! 🏥
+        </p>
+
+        <h3 style="margin-top:32px;">🚀 Fun Facts</h3>
+        <ul style="font-size:1.05rem;line-height:2;">
+          <li>🤖 Our AI has analyzed more chest X-rays than we've had hot meals during finals week</li>
+          <li>☕ This project was powered by approximately 427 cups of coffee</li>
+          <li>🌙 70% of the code was written between 2 AM and 5 AM</li>
+          <li>🐛 We found more bugs than a pest control company</li>
+          <li>💡 "It's not a bug, it's a feature" - used 23 times in development</li>
+        </ul>
+
+        <div style="margin-top:40px;text-align:center;padding:24px;background:var(--wave-gradient);border-radius:16px;">
+          <h3 style="margin-bottom:12px;">🎯 Our Motto</h3>
+          <p style="font-size:1.3rem;font-weight:700;color:var(--bright-sky);font-style:italic;">
+            "Making AI healthcare accessible, one semicolon at a time!"
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>About PneumoCare</h4>
+        <p class="small">AI-powered chest X-ray analysis for faster, more accurate pneumonia detection.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Developed By</h4>
+        <p style="font-weight:600;color:var(--bright-sky);">Dr. Musadiq & Dr. Tayyab</p>
+        <p class="small" style="font-style:italic;">*Educational Project - Not Licensed Medical Professionals</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 PneumoCare. Built with ❤️ and lots of caffeine.
+    </div>
+  </footer>
+
+  <script type="module" src="app.js"></script>
+  <script>
+    const mainToggle = document.getElementById('themeToggle');
+    const sideToggle = document.getElementById('themeToggleSide');
+    if (sideToggle && mainToggle) {
+      sideToggle.addEventListener('click', () => mainToggle.click());
+    }
+  </script>
+</body>
+</html>

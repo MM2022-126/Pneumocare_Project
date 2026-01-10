@@ -1,0 +1,122 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PneumoCare — Create Account</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="firebase-init.js"></script>
+</head>
+<body data-theme="light">
+  <!-- Medical Floating Shapes -->
+  <div class="floating-shape"></div>
+  <div class="floating-shape"></div>
+  <div class="floating-shape"></div>
+  
+  <!-- Site Header -->
+  <header class="site-header">
+    <nav class="nav">
+      <div class="brand">
+        <img src="./assets/logo.png" class="mini-logo" alt="PneumoCare"/>
+        <span>PneumoCare</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><button id="themeToggle">🌙</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Crystal Glass Floating Navigation -->
+  <div class="crystal-nav">
+    <a href="index.html" class="crystal-nav-btn" title="Home">🏠</a>
+    <a href="about.html" class="crystal-nav-btn" title="About">ℹ️</a>
+    <a href="dashboard.html" class="crystal-nav-btn" title="Dashboard">📊</a>
+    <button id="themeToggleSide" class="crystal-nav-btn" title="Toggle Theme">🌙</button>
+  </div>
+
+  <main style="max-width:700px;margin:80px auto;padding:20px;">
+    <div class="card card--3d">
+      <div class="section-header">
+        <div class="section-icon">✍</div>
+        <h2>Create Your Account</h2>
+      </div>
+      <p class="muted" style="margin-bottom:24px;">Join PneumoCare to access advanced diagnostic tools and patient management.</p>
+      
+      <form id="registerForm">
+        <div class="row">
+          <input id="regFirst" placeholder="First name *" required />
+          <input id="regLast" placeholder="Last name" />
+        </div>
+        <div class="row">
+          <input id="regPhone" placeholder="Phone number" />
+          <input id="regCity" placeholder="City" />
+        </div>
+        <div class="row">
+          <input id="regEmail" placeholder="Email address *" type="email" required />
+          <input id="regPassword" placeholder="Password *" type="password" required />
+        </div>
+        <div class="row">
+          <input id="regBlood" placeholder="Blood group (A+, B-, etc)" />
+          <input id="regCNIC" placeholder="CNIC / ID (optional)" />
+        </div>
+        <div style="margin-top:16px;">
+          <button class="primary btn--glow" type="submit" style="width:100%;">Create Account</button>
+        </div>
+        <div id="regMsg" class="small muted" style="margin-top:12px;"></div>
+      </form>
+
+      <div style="margin-top:24px;text-align:center;padding-top:20px;border-top:1px solid var(--glass-border);">
+        <p class="small">Already have an account? <a href="login.html" style="font-weight:600;">Login →</a></p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>About PneumoCare</h4>
+        <p class="small">AI-powered chest X-ray analysis for faster, more accurate pneumonia detection. Supporting healthcare professionals worldwide.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="#privacy">Privacy Policy</a></li>
+          <li><a href="#terms">Terms of Service</a></li>
+          <li><a href="#security">Data Security</a></li>
+          <li><a href="#support">Support</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Developed By</h4>
+        <p class="small" style="margin-bottom:8px;">Created with ❤️ by</p>
+        <p style="font-weight:600;color:var(--brand-emerald);margin:4px 0;">Dr. Musadiq</p>
+        <p style="font-weight:600;color:var(--brand-emerald);margin:4px 0;">Dr. Tayyab</p>
+        <p class="small" style="margin-top:12px;font-style:italic;">*Educational Project - Not Licensed Medical Professionals</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 PneumoCare. Advanced Medical AI Solutions. All rights reserved.
+    </div>
+  </footer>
+
+  <script type="module" src="app.js"></script>
+  <script>
+    // Sync theme toggles
+    const mainToggle = document.getElementById('themeToggle');
+    const sideToggle = document.getElementById('themeToggleSide');
+    
+    if (sideToggle && mainToggle) {
+      sideToggle.addEventListener('click', () => {
+        mainToggle.click();
+      });
+    }
+  </script>
+</body>
+</html>

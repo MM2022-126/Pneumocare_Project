@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PneumoCare API Tester</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+        .status {
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .status.loading { background: #fff3cd; color: #856404; }
+        .status.success { background: #d4edda; color: #155724; }
+        .status.error { background: #f8d7da; color: #721c24; }
+        
+        .test-section {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .test-section h2 {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            width: 100%;
+            transition: all 0.3s;
+            margin-bottom: 10px;
+        }
+        
+        button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        input[type="file"] {
+            display: block;
+            margin-bottom: 12px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            width: 100%;
+        }
+        
+        .result {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 13px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            color: #333;
+        }
+        
+        .result.success {
+            border-color: #28a745;
+            background: #f0fff4;
+        }
+        
+        .result.error {
+            border-color: #dc3545;
+            background: #fff5f5;
+            color: #c00;
+        }
+        
+        .info {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            margin-bottom: 15px;
+            color: #0c5aa0;
+        }
+        
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 3px solid rgba(102, 126, 234, 0.2);
+            border-radius: 50%;
+            border-top-color: #667eea;
+            animation: spin 1s linear infinite;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏥 PneumoCare API Tester</h1>
+        <div class="status" id="apiStatus">Testing...</div>
+        
+        <!-- Health Check -->
+        <div class="test-section">
+            <h2>1️⃣ Test API Health</h2>
+            <p class="info">Checks if Flask server is running and responding</p>
+            <button onclick="testHealth()">Check Health</button>
+            <div id="healthResult"></div>
+        </div>
+        
+        <!-- File Upload Test -->
+        <div class="test-section">
+            <h2>2️⃣ Test Image Upload</h2>
+            <p class="info">Upload a test image and get prediction from Flask</p>
+            <input type="file" id="testFile" accept="image/*">
+            <button onclick="testUpload()">Upload & Predict</button>
+            <div id="uploadResult"></div>
+        </div>
+        
+        <!-- Configuration -->
+        <div class="test-section">
+            <h2>⚙️ Configuration</h2>
+            <div class="info">
+                API URL: <strong>http://127.0.0.1:5000/predict</strong><br>
+                Status Endpoint: <strong>http://127.0.0.1:5000/health</strong>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://127.0.0.1:5000/predict';
+        const HEALTH_URL = 'http://127.0.0.1:5000/health';
+        
+        async function testHealth() {
+            const resultDiv = document.getElementById('healthResult');
+            resultDiv.innerHTML = '<div style="color: #667eea;"><span class="spinner"></span>Testing...</div>';
+            
+            try {
+                const response = await fetch(HEALTH_URL);
+                if (response.ok) {
+                    const data = await response.json();
+                    resultDiv.className = 'result success';
+                    resultDiv.innerHTML = '<strong>✅ API is Healthy!</strong><br><pre>' + JSON.stringify(data, null, 2) + '</pre>';
+                    updateStatus('success', 'API Ready');
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.innerHTML = '<strong>❌ API returned ' + response.status + '</strong>';
+                    updateStatus('error', 'API Error');
+                }
+            } catch (err) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = '<strong>❌ Cannot Connect to API</strong><br>' +
+                    'Error: ' + err.message + '<br><br>' +
+                    '<strong>Solution:</strong><br>' +
+                    '1. Make sure Flask is running: <code>python app.py</code><br>' +
+                    '2. Check that port 5000 is not blocked<br>' +
+                    '3. Verify API is responding at http://127.0.0.1:5000';
+                updateStatus('error', 'Cannot Connect');
+            }
+        }
+        
+        async function testUpload() {
+            const fileInput = document.getElementById('testFile');
+            const resultDiv = document.getElementById('uploadResult');
+            
+            if (!fileInput.files[0]) {
+                alert('Please select an image file first');
+                return;
+            }
+            
+            resultDiv.innerHTML = '<div style="color: #667eea;"><span class="spinner"></span>Uploading...</div>';
+            
+            try {
+                const formData = new FormData();
+                formData.append('file', fileInput.files[0]);
+                formData.append('patient_id', 'TEST-' + Date.now());
+                
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    resultDiv.className = 'result success';
+                    resultDiv.innerHTML = '<strong>✅ Prediction Received!</strong><br><pre>' + JSON.stringify(data, null, 2) + '</pre>';
+                } else {
+                    const errorData = await response.json().catch(() => ({error: 'Unknown error'}));
+                    resultDiv.className = 'result error';
+                    resultDiv.innerHTML = '<strong>❌ API Error ' + response.status + '</strong><br><pre>' + JSON.stringify(errorData, null, 2) + '</pre>';
+                }
+            } catch (err) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = '<strong>❌ Upload Failed</strong><br>' +
+                    'Error: ' + err.message + '<br><br>' +
+                    'Make sure Flask is running and image file is valid.';
+            }
+        }
+        
+        function updateStatus(status, text) {
+            const statusDiv = document.getElementById('apiStatus');
+            statusDiv.className = 'status ' + status;
+            statusDiv.textContent = (status === 'success' ? '✅' : '❌') + ' ' + text;
+        }
+        
+        // Auto-check health on load
+        window.addEventListener('load', () => {
+            setTimeout(testHealth, 500);
+        });
+    </script>
+</body>
+</html>

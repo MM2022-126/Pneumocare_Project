@@ -1,0 +1,170 @@
+
+<!-- public/dashboard.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PneumoCare — Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="firebase-init.js"></script>
+  <!-- PDF Generation Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body data-theme="light">
+  <!-- Medical Floating Shapes -->
+  <div class="floating-shape"></div>
+  <div class="floating-shape"></div>
+  <div class="floating-shape"></div>
+  <div class="medical-cross" style="top:12%; left:5%;"></div>
+  <div class="cardio-line" style="top:70%; right:10%;"></div>
+  <div class="capsule-shape" style="bottom:15%; left:25%;"></div>
+  
+  <!-- Site Header -->
+  <header class="topbar">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <img src="./assets/logo.png" class="mini-logo" alt="PneumoCare"/>
+      <h2 style="margin:0;font-size:1.5rem;background:var(--accent-spectrum);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">PneumoCare</h2>
+      <div style="margin-left:16px" id="welcomeBadge"></div>
+    </div>
+    <div style="display:flex;gap:12px;align-items:center;">
+      <button id="themeToggle">🌙</button>
+      <button id="logoutBtn" class="secondary">Logout</button>
+    </div>
+  </header>
+
+  <!-- Crystal Glass Floating Navigation -->
+  <div class="crystal-nav">
+    <a href="index.html" class="crystal-nav-btn" title="Home">🏠</a>
+    <a href="contact.html" class="crystal-nav-btn" title="Contact">📧</a>
+    <a href="about.html" class="crystal-nav-btn" title="About">ℹ️</a>
+    <button id="themeToggleSide" class="crystal-nav-btn" title="Toggle Theme">🌙</button>
+  </div>
+
+  <main class="dashboard-layout">
+    <!-- Sidebar - Patient Module -->
+    <aside class="sidebar">
+      <div class="card">
+        <div class="section-header">
+          <div class="section-icon">👤</div>
+          <h3 style="font-size:1.25rem;">Patients</h3>
+        </div>
+        <button id="newPatientBtn" class="primary btn--glow" style="width:100%;">+ New Patient</button>
+        <input id="search" placeholder="Search patient..." style="margin-top:14px" />
+        <div id="patientList" class="list"></div>
+      </div>
+    </aside>
+
+    <section class="content">
+      <!-- Patient Info Module -->
+      <div id="patientFormCard" class="card">
+        <div class="section-header">
+          <div class="section-icon">📋</div>
+          <h3>Patient Information</h3>
+        </div>
+        <form id="patientForm">
+          <div class="row">
+            <input id="firstName" placeholder="First name" required />
+            <input id="lastName" placeholder="Last name" />
+          </div>
+          <div class="row">
+            <input id="phone" placeholder="Phone" />
+            <input id="bloodGroup" placeholder="Blood group" />
+          </div>
+          <div class="row">
+            <input id="city" placeholder="City" />
+            <input id="age" placeholder="Age" type="number" />
+          </div>
+          <textarea id="notes" placeholder="Notes / symptoms / medical history"></textarea>
+          <div style="margin-top:14px;display:flex;gap:12px;flex-wrap:wrap;">
+            <button id="savePatientBtn" class="primary btn--glow" type="submit">Save / Update Patient</button>
+            <button id="clearFormBtn" type="button" class="secondary">Clear Form</button>
+          </div>
+          <div id="patientIdDisplay" class="small muted" style="margin-top:12px"></div>
+        </form>
+      </div>
+
+      <!-- Diagnostics Module -->
+      <div id="xrCard" class="card">
+        <div class="section-header">
+          <div class="section-icon">🩺</div>
+          <h3>Chest X-ray Diagnostics</h3>
+        </div>
+        <input type="file" id="xrFile" accept="image/*" style="margin-bottom:14px;" />
+        <div style="margin-top:14px;display:flex;gap:12px;align-items:center;">
+          <button id="uploadAndPredict" class="primary btn--glow">Upload & Predict</button>
+          <span id="uploadStatus" class="muted"></span>
+        </div>
+        <div id="resultCard" class="result"></div>
+      </div>
+
+      <!-- History Module -->
+      <div id="historyCard" class="card">
+        <div class="section-header">
+          <div class="section-icon">📊</div>
+          <h3>Medical History</h3>
+        </div>
+        <div id="historyList"></div>
+      </div>
+
+      <!-- Reports Module -->
+      <div class="card">
+        <div class="section-header">
+          <div class="section-icon">📄</div>
+          <h3>Reports</h3>
+        </div>
+        <button id="downloadReport" class="secondary btn--pill" style="width:100%;">Download Latest PDF Report</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>About PneumoCare</h4>
+        <p class="small">AI-powered chest X-ray analysis for faster, more accurate pneumonia detection.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="#privacy">Privacy Policy</a></li>
+          <li><a href="#terms">Terms of Service</a></li>
+          <li><a href="#support">Support</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Compliance</h4>
+        <div class="compliance-badges">
+          <span class="badge-item">🏥 HIPAA</span>
+          <span class="badge-item">🔒 ISO 27001</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div style="text-align:center;margin-bottom:8px;color:var(--text-secondary);">
+        <strong>Developed By</strong><br>
+        <span style="font-size:0.95rem;">Created with ❤️ by</span><br>
+        <span style="font-size:1.1rem;">Dr. Musadiq &amp; Dr. Tayyab</span><br>
+        <span style="font-size:0.85rem;font-style:italic;">*Educational Project - Not Licensed Medical Professionals</span>
+      </div>
+      © 2025 PneumoCare. All rights reserved.
+    </div>
+  </footer>
+
+  <script type="module" src="app.js"></script>
+  <script>
+    // Sync theme toggles
+    const mainToggle = document.getElementById('themeToggle');
+    const sideToggle = document.getElementById('themeToggleSide');
+    
+    if (sideToggle && mainToggle) {
+      sideToggle.addEventListener('click', () => {
+        mainToggle.click();
+      });
+    }
+  </script>
+</body>
+</html>

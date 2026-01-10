@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact Us — PneumoCare</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="firebase-init.js"></script>
+</head>
+<body data-theme="light">
+  <div class="floating-shape"></div>
+  <div class="floating-shape"></div>
+  
+  <header class="site-header">
+    <nav class="nav">
+      <div class="brand">
+        <span style="font-size:2rem;background:var(--accent-spectrum);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:700;">PneumoCare</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><button id="themeToggle">🌙</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="crystal-nav">
+    <a href="index.html" class="crystal-nav-btn" title="Home">🏠</a>
+    <a href="about.html" class="crystal-nav-btn" title="About">ℹ️</a>
+    <a href="dashboard.html" class="crystal-nav-btn" title="Dashboard">📊</a>
+    <button id="themeToggleSide" class="crystal-nav-btn" title="Toggle Theme">🌙</button>
+  </div>
+
+  <main style="max-width:800px;margin:80px auto;padding:20px;">
+    <div class="card card--3d">
+      <div class="section-header">
+        <div class="section-icon">📧</div>
+        <h1 style="font-size:2.5rem;">Contact Us</h1>
+      </div>
+      
+      <p class="muted" style="font-size:1.15rem;margin-top:20px;line-height:1.8;">
+        Got questions? Found a bug? Want to tell us our AI diagnosed your cat's X-ray? 
+        We'd love to hear from you! 😺
+      </p>
+
+      <div style="margin-top:40px;">
+        <h3>📬 How to Reach Us</h3>
+        
+        <div style="display:grid;gap:20px;margin-top:24px;">
+          <div class="glass-panel">
+            <h4 style="color:var(--bright-sky);">📧 Email</h4>
+            <p style="font-size:1.1rem;margin-top:8px;">
+              <a href="mailto:pneumocare@notarealmail.edu" style="font-weight:600;">pneumocare@notarealmail.edu</a>
+            </p>
+            <p class="small" style="margin-top:8px;font-style:italic;">
+              (Warning: Response time directly proportional to our coffee levels)
+            </p>
+          </div>
+
+          <div class="glass-panel">
+            <h4 style="color:var(--tomato);">💬 Support Hours</h4>
+            <p style="margin-top:8px;">Monday - Friday: 2 AM - 5 AM (When we're actually awake)</p>
+            <p class="small" style="margin-top:8px;font-style:italic;">
+              Just kidding! We check messages whenever we remember to... which is surprisingly often!
+            </p>
+          </div>
+
+          <div class="glass-panel">
+            <h4 style="color:var(--bright-sky);">🎓 Campus Location</h4>
+            <p style="margin-top:8px;">Parallel Processing Lab, Computer Science Department</p>
+            <p class="small" style="margin-top:8px;font-style:italic;">
+              Usually found debugging at 3 AM, fueled by instant noodles and determination
+            </p>
+          </div>
+        </div>
+
+        <div style="margin-top:40px;background:rgba(74,159,202,0.1);padding:24px;border-radius:16px;border-left:4px solid var(--bright-sky);">
+          <h3 style="margin-top:0;">💡 Quick Tips Before You Contact</h3>
+          <ul style="line-height:2;">
+            <li>✅ "It's not working" - Please be more specific (We're devs, not mind readers!)</li>
+            <li>✅ Screenshots are worth a thousand words (and save us a thousand questions)</li>
+            <li>✅ If your error message has red text, we definitely want to see it</li>
+            <li>❌ "Just make it work" - We tried, that's why you're contacting us</li>
+            <li>❌ "Can you add blockchain?" - No. Just... no.</li>
+          </ul>
+        </div>
+
+        <div style="margin-top:32px;text-align:center;padding:32px;background:var(--wave-gradient);border-radius:16px;">
+          <h3>🚀 Found a Bug?</h3>
+          <p style="font-size:1.1rem;margin-top:12px;">
+            Congratulations! You're officially a beta tester! 🎉
+          </p>
+          <p class="small" style="margin-top:12px;">
+            Send us the details and we'll fix it faster than you can say "undefined is not a function"
+          </p>
+        </div>
+
+        <div style="margin-top:32px;text-align:center;">
+          <h3>🌟 Want to Contribute?</h3>
+          <p style="margin-top:12px;">
+            This is an open educational project! If you're a student interested in AI healthcare, 
+            machine learning, or just want to help us fix our terrible code, reach out!
+          </p>
+          <p class="small" style="margin-top:16px;font-style:italic;">
+            "We accept pull requests and pizza" - Every developer ever
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>About PneumoCare</h4>
+        <p class="small">AI-powered chest X-ray analysis for faster, more accurate pneumonia detection.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Developed By</h4>
+        <p style="font-weight:600;color:var(--bright-sky);">Dr. Musadiq & Dr. Tayyab</p>
+        <p class="small" style="font-style:italic;">*Educational Project - Not Licensed Medical Professionals</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 PneumoCare. Debugging since 2024.
+    </div>
+  </footer>
+
+  <script type="module" src="app.js"></script>
+  <script>
+    const mainToggle = document.getElementById('themeToggle');
+    const sideToggle = document.getElementById('themeToggleSide');
+    if (sideToggle && mainToggle) {
+      sideToggle.addEventListener('click', () => mainToggle.click());
+    }
+  </script>
+</body>
+</html>
